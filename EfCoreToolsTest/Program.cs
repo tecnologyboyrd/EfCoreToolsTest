@@ -62,15 +62,11 @@ SELECT * FROM TOP3 WHERE RowNo <= 3
 
 using (var Context = new DesignPatternsContext())
 {   
-    List<REJEMPLO_PU> Ep = new List<REJEMPLO_PU>();
 
-    Ep = Context.REJEMPLO_PU.ToList();
-
-    //Este es la manera de hacer la seleccion en LinQ
-
-    var ex = Ep.GroupBy(row => row.Student)
+    var ex = Context.REJEMPLO_PU.ToList().GroupBy(row => row.Student)
         .SelectMany(x => x.OrderByDescending(row => row.Semester).Take(3)).ToList();
-        
+
+
     foreach (var element in ex)
     {
         Console.WriteLine($"Student : {element.Student} \t Semester : {element.Semester} \t  Qualification : {element.Qualification}");
